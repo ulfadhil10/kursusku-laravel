@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -17,9 +18,8 @@ $coursesData = [
     6 => ['name' => 'UI Web Dasar', 'quota' => 35, 'registered' => 9],
 ];
 
-// 1. Route untuk menampilkan form
+// Menampilkan form pendaftaran
 Route::get('/pendaftaran', function () use ($coursesData) {
-    // Data tambahan untuk mengisi dropdown di form sesuai gambar
     $programStudi = ['Teknik Informatika', 'Sistem Informasi', 'Ilmu Komputer', 'Lainnya'];
     $metodeBelajar = ['Online', 'Offline', 'Hybrid'];
     $jumlahPaket = ['1 paket', '2 paket', '3 paket'];
@@ -32,30 +32,36 @@ Route::get('/pendaftaran', function () use ($coursesData) {
     ]);
 })->name('enrollments.create');
 
-// 2. Route untuk memproses form (Validasi disesuaikan dengan gambar)
+// Memproses dan memvalidasi form
 Route::post('/pendaftaran/preview', function (Request $request) {
     $request->validate([
         'name' => ['required', 'string', 'min:3', 'max:100'],
         'email' => ['required', 'email'],
-        'phone' => ['required', 'string', 'max:15'], // Tambahan No HP
-        'program_studi' => ['required', 'string'], // Tambahan Program Studi
+        'phone' => ['required', 'string', 'max:15'],
+        'program_studi' => ['required', 'string'],
         'course_id' => ['required', 'integer'],
-        'jenis_peserta' => ['required', 'in:Mahasiswa,Umum,Guru'], // Radio button
-        'minat_tambahan' => ['nullable', 'array'], // Checkbox (bisa lebih dari satu)
+        'jenis_peserta' => ['required', 'in:Mahasiswa,Umum,Guru'],
+        'minat_tambahan' => ['nullable', 'array'],
         'minat_tambahan.*' => ['in:UI/UX,Database,Backend,Frontend'],
-        'metode_belajar' => ['required', 'string'], // Dropdown metode
-        'jumlah_paket' => ['required', 'string'], // Dropdown paket
-        'catatan' => ['nullable', 'string', 'max:300'], // Textarea max 300 karakter
+        'metode_belajar' => ['required', 'string'],
+        'jumlah_paket' => ['required', 'string'],
+        'catatan' => ['nullable', 'string', 'max:300'],
     ]);
 
-    // Jika validasi lolos, kembalikan ke halaman sebelumnya dengan pesan sukses
-    return back()->with('success', 'Form pendaftaran berhasil divalidasi!')->withInput();
+    return back()
+        ->with('success', 'Form pendaftaran berhasil divalidasi!')
+        ->withInput();
 })->name('enrollments.preview');
 
-// 3. Route untuk cek sisa kuota (tidak ada perubahan)
+// Mengecek sisa kuota kursus melalui Ajax
 Route::get('/courses/{course}/availability', function (int $course) use ($coursesData) {
     abort_unless(isset($coursesData[$course]), 404);
+
     $data = $coursesData[$course];
     $remaining = max(0, $data['quota'] - $data['registered']);
-    return response()->json(['course' => $data['name'], 'remaining' => $remaining]);
+
+    return response()->json([
+        'course' => $data['name'],
+        'remaining' => $remaining
+    ]);
 })->name('courses.availability');
