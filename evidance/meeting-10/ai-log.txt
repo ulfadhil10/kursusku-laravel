@@ -1,0 +1,14 @@
+AI LOG – PERTEMUAN 11
+
+1. Menggunakan ChatGPT untuk mencari solusi pada bagian CourseController agar fitur Show, Edit, Update, dan Delete dapat berjalan.
+2. Mengembangkan tampilan halaman detail kursus menggunakan Blade dan CSS.
+3. Memperbaiki halaman edit agar data kursus sebelumnya otomatis ditampilkan pada form.
+4. Menerapkan validasi pada proses penambahan dan perubahan data kursus.
+5. Mengatur validasi kode kursus agar tidak terjadi duplikasi.
+6. Menambahkan notifikasi ketika data berhasil diperbarui dan dihapus.
+7. Menyesuaikan tampilan tombol Detail, Edit, dan Hapus pada halaman daftar kursus.
+8. Menyusun Test Matrix untuk mencatat hasil pengujian fitur CRUD dan validasi.
+
+Kesimpulan:
+
+AI digunakan sebagai referensi selama pengerjaan praktik Laravel CRUD Lanjutan, mulai dari perbaikan kode, pengaturan tampilan, hingga pengujian fitur pada aplikasi KursusKu.
