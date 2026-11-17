@@ -5,9 +5,18 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('courses', CourseController::class);
+Route::get('/enrollments', [EnrollmentController::class, 'index'])
+    ->name('enrollments.index');
+
+Route::get('/enrollments/create', [EnrollmentController::class, 'create'])
+    ->name('enrollments.create');
+
+Route::post('/enrollments', [EnrollmentController::class, 'store'])
+    ->name('enrollments.store');
 
 $coursesData = [
     1 => ['name' => 'Web Dasar', 'quota' => 30, 'registered' => 12],
@@ -24,13 +33,13 @@ Route::get('/pendaftaran', function () use ($coursesData) {
     $metodeBelajar = ['Online', 'Offline', 'Hybrid'];
     $jumlahPaket = ['1 paket', '2 paket', '3 paket'];
 
-    return view('enrollments.create', [
+    return view('pendaftaran.create', [
         'courses' => $coursesData,
         'programStudi' => $programStudi,
         'metodeBelajar' => $metodeBelajar,
         'jumlahPaket' => $jumlahPaket
     ]);
-})->name('enrollments.create');
+})->name('pendaftaran.create');
 
 // Memproses dan memvalidasi form
 Route::post('/pendaftaran/preview', function (Request $request) {
@@ -51,7 +60,7 @@ Route::post('/pendaftaran/preview', function (Request $request) {
     return back()
         ->with('success', 'Form pendaftaran berhasil divalidasi!')
         ->withInput();
-})->name('enrollments.preview');
+})->name('pendaftaran.preview');
 
 // Mengecek sisa kuota kursus melalui Ajax
 Route::get('/courses/{course}/availability', function (int $course) use ($coursesData) {

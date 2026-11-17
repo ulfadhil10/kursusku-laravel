@@ -56,5 +56,5 @@
     <a href="/form-p5">Form P5</a>
     <a href="/form-p6">Form P6</a>
     <a href="/history">History</a>
-    <a href="{{ route('enrollments.create') }}">Daftar Kursus</a>
+    <a href="{{ route('pendaftaran.create') }}">Daftar Kursus</a>
 </nav>

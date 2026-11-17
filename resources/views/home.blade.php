@@ -23,7 +23,7 @@
                 
                 <div class="hero-buttons">
                     <a href="#kursus" class="button btn-hijau">Lihat Katalog</a>
-                    <a href="{{ route('enrollments.create') }}" class="button btn-putih">Daftar Sekarang</a>
+                    <a href="{{ route('pendaftaran.create') }}" class="button btn-putih">Daftar Sekarang</a>
                 </div>
                 
                 <div class="hero-buttons-bottom">
@@ -144,7 +144,7 @@
 
         <!-- Tombol di bawah -->
         <div class="step-action">
-            <a href="{{ route('enrollments.create') }}" class="button btn-hijau">Buka Formulir Pendaftaran</a>
+            <a href="{{ route('pendaftaran.create') }}" class="button btn-hijau">Buka Formulir Pendaftaran</a>
         </div>
     </div>
 </section>
